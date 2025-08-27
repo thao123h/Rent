@@ -66,18 +66,18 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Cho phép tất cả request POST tới /api/auth/** (signup/signin) mà không cần token
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                        .requestMatchers( "/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         // Chỉ user có authority "admin" mới truy cập /api/users/all
-                        .requestMatchers("/api/users/all").hasAuthority("admin")
+//                        .requestMatchers("/api/users/all").hasAuthority("admin")
                         // Các request còn lại đều cần authentication
-                        .anyRequest().authenticated()
+//                        .anyRequest().authenticated()
                 );
 
         http.authenticationProvider(authenticationProvider());
 
         // Thêm filter JWT trước UsernamePasswordAuthenticationFilter
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

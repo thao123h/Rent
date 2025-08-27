@@ -17,11 +17,11 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -53,10 +53,10 @@ public class Item {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",fetch = FetchType.LAZY)
     private List<ItemImage> images;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
     public enum Status {

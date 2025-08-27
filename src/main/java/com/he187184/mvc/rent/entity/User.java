@@ -41,13 +41,13 @@ public class User {
     private LocalDateTime updatedAt;
 
     // Relationships
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Item> items;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
-    @OneToMany(mappedBy = "renter")
+    @OneToMany(mappedBy = "renter",fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
 }
