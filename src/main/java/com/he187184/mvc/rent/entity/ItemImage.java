@@ -31,6 +31,6 @@ public class ItemImage {
     private LocalDateTime createdAt;
 
     public enum ImageType {
-        MAIN, EXTRA
+        main, extra
     }
 }

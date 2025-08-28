@@ -53,13 +53,13 @@ public class Item {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<ItemImage> images;
 
     @OneToMany(mappedBy = "item")
     private List<Booking> bookings;
 
     public enum Status {
-        AVAILABLE, UNAVAILABLE
+        available, unavailable
     }
 }

@@ -2,6 +2,8 @@
 
 package com.he187184.mvc.rent.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -63,20 +65,41 @@ public class Booking {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
     private List<Payment> payments;
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
     private List<Review> reviews;
 
-    @OneToOne(mappedBy = "booking")
+    @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
     private ChatConversation chatConversation;
 
+
     public enum Status {
-        PENDING, CONFIRMED, CANCELLED, COMPLETED
+        PENDING, CONFIRMED, CANCELLED, COMPLETED;
+
+        @JsonValue
+        public String toLower() {
+            return this.name().toLowerCase(); // serialize thành chữ thường
+        }
+
+        @JsonCreator
+        public static Status fromString(String value) {
+            return Status.valueOf(value.toUpperCase()); // deserialize chữ thường thành enum
+        }
     }
 
     public enum PaymentStatus {
-        UNPAID, PAID
+        UNPAID, PAID;
+
+        @JsonValue
+        public String toLower() {
+            return this.name().toLowerCase();
+        }
+
+        @JsonCreator
+        public static PaymentStatus fromString(String value) {
+            return PaymentStatus.valueOf(value.toUpperCase());
+        }
     }
 }

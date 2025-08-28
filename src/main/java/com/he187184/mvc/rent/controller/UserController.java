@@ -19,7 +19,7 @@ public class UserController {
     // GET /api/users
     @GetMapping("all")
     public List<User> getUsers(){
-        return userRepository.findByRoleIsNot(Role.admin);
+        return userRepository.findUsersByRole(Role.owner);
     }
 
 }
